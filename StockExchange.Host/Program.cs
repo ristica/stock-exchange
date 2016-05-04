@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using StockExchange.Services;
+using System;
+using System.ServiceModel;
 
 namespace StockExchange.Host
 {
@@ -10,6 +8,21 @@ namespace StockExchange.Host
     {
         static void Main(string[] args)
         {
+            Console.Title = "STOCK EXCHANGE - HOST";
+
+            Console.WriteLine("### Starting StockManager service ###");
+            Console.WriteLine("");
+
+            var stockHost = new ServiceHost(typeof(StockManager));
+            stockHost.Open();
+
+            Console.WriteLine("\tStockManager => started");
+            Console.WriteLine("");
+            Console.WriteLine("Press <Enter> to close the service");
+            Console.WriteLine("");
+            Console.ReadKey();
+
+            stockHost.Close();
         }
     }
 }

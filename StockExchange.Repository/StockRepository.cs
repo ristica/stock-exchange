@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace StockExchange.Repository
 {
-    public class StockRepository
+    public class StockRepository : IStockRepository
     {
         public IEnumerable<Stock> Get()
         {

@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,6 +42,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StockManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StockExchange.Contracts\StockExchange.Contracts.csproj">
+      <Project>{c7983d64-fe72-4550-8efc-217291aca011}</Project>
+      <Name>StockExchange.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StockExchange.Data\StockExchange.Data.csproj">
+      <Project>{b02ea783-38b0-499d-b73a-7cc5d11a36d8}</Project>
+      <Name>StockExchange.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StockExchange.Repository\StockExchange.Repository.csproj">
+      <Project>{a6ebd6ee-b309-4631-a9cf-18e400ef213a}</Project>
+      <Name>StockExchange.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
