@@ -21,6 +21,7 @@ namespace StockExchange.Services
                     new StockData
                     {
                         Share = s.Share,
+                        Company = s.Trader,
                         CurrentPrice = s.CurrentPrice
                     });
                 }

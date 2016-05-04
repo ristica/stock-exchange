@@ -9,6 +9,9 @@ namespace StockExchange.Contracts.DataContracts
         public string Share { get; set; }
 
         [DataMember]
+        public string Company { get; set; }
+
+        [DataMember]
         public decimal CurrentPrice { get; set; }
     }
 }
