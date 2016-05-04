@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="Stock Trade Company"
         ResizeMode="NoResize"
-        Height="280"
-        Width="400">
+        Height="290"
+        Width="410">
     <Border>
 
         <Grid Margin="20">
@@ -39,7 +39,7 @@
                        FontWeight="Bold"
                        Foreground="DarkGoldenrod"
                        VerticalAlignment="Top"
-                       HorizontalAlignment="Center"
+                       HorizontalAlignment="Right" Margin="0,0,13,0"
                        Text="Price" />
             <Border Grid.Row="1"
                     Grid.Column="0"
@@ -66,7 +66,7 @@
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition />
-                                <RowDefinition Height="2" />
+                                <RowDefinition Height="1" />
                             </Grid.RowDefinitions>
 
                             <StackPanel Grid.Column="0"
@@ -88,7 +88,7 @@
                                        Grid.Column="1"
                                        Text="{Binding Price}"
                                        VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
+                                       HorizontalAlignment="Right"
                                        FontSize="11"
                                        FontWeight="Bold" />
 
@@ -115,7 +115,8 @@
                             <Border Grid.Row="1"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="4"
-                                    Background="DarkGoldenrod" />
+                                    Background="DarkGoldenrod" 
+                                    Opacity=".2"/>
 
                         </Grid>
                     </DataTemplate>
