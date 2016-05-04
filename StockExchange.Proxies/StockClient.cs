@@ -17,5 +17,10 @@ namespace StockExchange.Proxies
         {
             return Channel.GetStock(shape);
         }
+
+        public decimal UpdateStockPrice(string shape, decimal oldPrice, bool up)
+        {
+            return Channel.UpdateStockPrice(shape, oldPrice, up);
+        }
     }
 }

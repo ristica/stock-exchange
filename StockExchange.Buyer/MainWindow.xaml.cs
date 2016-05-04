@@ -158,6 +158,23 @@ namespace StockExchange.Buyer
             }, null);
         }
 
+        /// <summary>
+        /// update stock's current price if it changed by admin client
+        /// </summary>
+        /// <param name="share"></param>
+        /// <param name="price"></param>
+        public void NotifyClientsStockChanged(string share, decimal price)
+        {
+            this._syncContext.Send(arg =>
+            {
+                var vm = this.Buyers.SingleOrDefault(b => b.Share.ToUpper() == share.ToUpper());
+                if (vm == null) return;
+
+                vm.Change = vm.Price > price;
+                vm.Price = price;
+            }, null);
+        }
+
         #endregion
     }
 }

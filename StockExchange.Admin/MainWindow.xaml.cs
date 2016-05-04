@@ -48,24 +48,18 @@ namespace StockExchange.Admin
 
         private void ButtonDownClicked(object sender, RoutedEventArgs e)
         {
-            var btn = sender as Button;
-            if (btn == null) return;
-
-            var stock = this.Stocks.SingleOrDefault(s => s.Share.ToUpper() == btn.Tag.ToString().ToUpper());
+            var stock = this.GetStockValues(sender);
             if (stock == null) return;
 
-            stock.Price -= new decimal(0.5);
+            stock.Price = this._proxy.UpdateStockPrice(stock.Share.ToUpper(), stock.Price, false);
         }
 
         private void ButtonUpClicked(object sender, RoutedEventArgs e)
         {
-            var btn = sender as Button;
-            if (btn == null) return;
-
-            var stock = this.Stocks.SingleOrDefault(s => s.Share.ToUpper() == btn.Tag.ToString().ToUpper());
+            var stock = this.GetStockValues(sender);
             if (stock == null) return;
 
-            stock.Price += new decimal(0.5);
+            stock.Price = this._proxy.UpdateStockPrice(stock.Share.ToUpper(), stock.Price, true);
         }
 
         #endregion
@@ -79,6 +73,21 @@ namespace StockExchange.Admin
             this._proxy.Close();
         }
 
-        #endregion        
+        #endregion
+
+        #region Helpers 
+
+        private StockViewModel GetStockValues(object sender)
+        {
+            var btn = sender as Button;
+            if (btn == null) return null;
+
+            var share = btn.Tag.ToString().ToUpper();
+            var stock = this.Stocks.SingleOrDefault(s => s.Share.ToUpper() == share);
+
+            return stock;
+        }
+
+        #endregion
     }
 }

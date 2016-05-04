@@ -12,5 +12,8 @@ namespace StockExchange.Contracts
 
         [OperationContract]
         StockData GetStock(string shape);
+
+        [OperationContract]
+        decimal UpdateStockPrice(string shape, decimal oldPrice, bool up);
     }
 }

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using StockExchange.Contracts.DataContracts;
 using StockExchange.Repository;
 using System.Linq;
+using System;
 
 namespace StockExchange.Services
 {
     public class StockManager : IStockService
     {
+        private readonly decimal _amount = new decimal(0.75);
+
         public IEnumerable<StockData> Get()
         {
             var data = new List<StockData>();
@@ -37,6 +40,18 @@ namespace StockExchange.Services
             if (stock == null) return null;
 
             return new StockData { Share = stock.Share, Company = stock.Company, CurrentPrice = stock.CurrentPrice };
+        }
+
+        public decimal UpdateStockPrice(string shape, decimal oldPrice, bool up)
+        {
+            var stock = this.Get().SingleOrDefault(s => s.Share.ToUpper() == shape.ToUpper());
+            if (stock == null) return oldPrice;
+
+            var newPrice = up ? (oldPrice += this._amount) : (oldPrice -= this._amount);
+
+            PubSubManager.NotifySubscribersAboutStockPriceChange(shape, newPrice);
+
+            return newPrice;
         }
     }
 }

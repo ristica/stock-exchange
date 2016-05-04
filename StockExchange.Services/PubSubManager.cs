@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ServiceModel;
 using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace StockExchange.Services
 {
@@ -134,7 +135,7 @@ namespace StockExchange.Services
             RemoveDownClients(downSubscribers);
         }
 
-        private void RemoveDownClients(List<IStockCallback> downSubscribers)
+        private static void RemoveDownClients(IEnumerable<IStockCallback> downSubscribers)
         {
             if (!downSubscribers.Any()) return;
 
@@ -150,6 +151,33 @@ namespace StockExchange.Services
                     subscribers.Remove(s);
                 }
             }
+        }
+
+        public static void NotifySubscribersAboutStockPriceChange(string share, decimal price)
+        {
+            // need to know if one of the suscribers went down in meantime
+            var downSubscribers = new List<IStockCallback>();
+
+            lock (StockWatchers)
+            {
+                if (StockWatchers.ContainsKey(share.ToUpper()))
+                {
+                    var shareSubscribers = StockWatchers[share.ToUpper()];
+                    foreach (var s in shareSubscribers)
+                    {
+                        try
+                        {
+                            s.NotifyClientsStockChanged(share, price);
+                        }
+                        catch (Exception)
+                        {
+                            downSubscribers.Add(s);
+                        }
+                    }
+                }
+            }
+
+            RemoveDownClients(downSubscribers);
         }
 
         #endregion

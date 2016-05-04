@@ -7,5 +7,8 @@ namespace StockExchange.Contracts
     {
         [OperationContract]
         void UpdateSubscriptions(string share, int subscribers);
+
+        [OperationContract]
+        void NotifyClientsStockChanged(string share, decimal price);
     }
 }

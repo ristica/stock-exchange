@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Media;
 
 namespace StockExchange.Buyer.ViewModels
 {
@@ -8,8 +9,9 @@ namespace StockExchange.Buyer.ViewModels
         #region Fields
 
         private string _share;
-        public int _subscribers;
+        private int _subscribers;
         private decimal _price;
+        private bool _change;
 
         #endregion
 
@@ -44,6 +46,17 @@ namespace StockExchange.Buyer.ViewModels
             {
                 if (this._price == value) return;
                 this._price = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool Change
+        {
+            get { return this._change; }
+            set
+            {
+                if (this._change == value) return;
+                this._change = value;
                 OnPropertyChanged();
             }
         }
