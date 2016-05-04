@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContracts\StockData.cs" />
+    <Compile Include="IPubSubService.cs" />
+    <Compile Include="IStockCallback.cs" />
     <Compile Include="IStockService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

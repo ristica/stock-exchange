@@ -9,5 +9,8 @@ namespace StockExchange.Contracts
     {
         [OperationContract]
         IEnumerable<StockData> Get();
+
+        [OperationContract]
+        StockData GetStock(string shape);
     }
 }

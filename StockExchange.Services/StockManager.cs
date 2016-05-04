@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using StockExchange.Contracts.DataContracts;
 using StockExchange.Repository;
+using System.Linq;
 
 namespace StockExchange.Services
 {
@@ -28,6 +29,14 @@ namespace StockExchange.Services
             }
 
             return data;
+        }
+
+        public StockData GetStock(string shape)
+        {
+            var stock = this.Get().SingleOrDefault(s => s.Share.ToUpper() == shape.ToUpper());
+            if (stock == null) return null;
+
+            return new StockData { Share = stock.Share, Company = stock.Company, CurrentPrice = stock.CurrentPrice };
         }
     }
 }

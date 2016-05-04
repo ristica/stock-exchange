@@ -5,8 +5,170 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StockExchange.Buyer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="Stock Watcher"
+        Height="350"
+        Width="350">
+    <Border>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="2" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       FontSize="12"
+                       FontWeight="Bold"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Center"
+                       Text="Share to watch:" />
+            <TextBox Grid.Row="1"
+                     Grid.Column="0"
+                     HorizontalAlignment="Stretch"
+                     VerticalAlignment="Stretch"
+                     Margin="2"
+                     Padding="2"
+                     FontSize="12"
+                     Name="TxtShareToWatch" />
+            <Button Grid.Row="1"
+                    Grid.Column="1"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch"
+                    Margin="2"
+                    Content="Subscribe"
+                    Click="ButtonSubscribeClicked" />
+
+            <Grid Grid.Row="3"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
+                  VerticalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="2" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Text="Share"
+                           Foreground="DarkGoldenrod"
+                           FontWeight="Bold"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center"
+                           FontSize="10"
+                           Margin="6,0,0,3" />
+                <TextBlock Grid.Row="0"
+                           Grid.Column="1"
+                           Text="Price"
+                           FontSize="10"
+                           Foreground="DarkGoldenrod"
+                           FontWeight="Bold"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center"
+                           Margin="6,0,0,3" />
+                <TextBlock Grid.Row="0"
+                           Grid.Column="2"
+                           Text="Up-Down"
+                           FontSize="10"
+                           Foreground="DarkGoldenrod"
+                           FontWeight="Bold"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center"
+                           Margin="5,0,0,3" />
+                <TextBlock Grid.Row="0"
+                           Grid.Column="3"
+                           Text="Nr"
+                           FontSize="10"
+                           Foreground="DarkGoldenrod"
+                           FontWeight="Bold"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center"
+                           Margin="1,0,0,3" />
+                <Border Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="5"
+                        VerticalAlignment="Stretch"
+                        Background="DarkGoldenrod" />
+
+                <ListBox Grid.Row="2"
+                         Grid.Column="0"
+                         Grid.ColumnSpan="5"
+                         Name="LbShare"
+                         HorizontalAlignment="Stretch"
+                         VerticalAlignment="Top"
+                         Padding="0" Margin="0" BorderBrush="Transparent">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="40" Margin="0" Width="285">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition Height="2" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="70" />
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition Width="25" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0"
+                                           Text="{Binding Share}"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           FontSize="11"
+                                           FontWeight="Bold" />
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding Price}"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           FontSize="11"
+                                           FontWeight="Bold" />
+                                <Grid Grid.Column="2"
+                                      Width="20"
+                                      Height="15"
+                                      Background="green"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Center" />
+                                <TextBlock Grid.Column="3"
+                                           Text="{Binding Subscribers}"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           FontSize="11"
+                                           FontWeight="Bold" />
+                                <TextBlock Grid.Column="4"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" FontSize="10">
+                                    <Hyperlink Tag="{Binding Share}"
+                                               Click="BtnUnsubscribeClicked">
+                                        unsubscribe
+                                    </Hyperlink>    
+                                </TextBlock>
+                                <Border Grid.Row="1"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="5"
+                                        VerticalAlignment="Stretch"
+                                        Background="DarkGoldenrod" />
+
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </Grid>
+        </Grid>
+    </Border>
 </Window>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ServiceModel;
 using StockExchange.Contracts.DataContracts;
+using System;
 
 namespace StockExchange.Proxies
 {
@@ -10,6 +11,11 @@ namespace StockExchange.Proxies
         public IEnumerable<StockData> Get()
         {
             return Channel.Get();
+        }
+
+        public StockData GetStock(string shape)
+        {
+            return Channel.GetStock(shape);
         }
     }
 }
