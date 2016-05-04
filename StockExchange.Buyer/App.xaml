@@ -1,7 +1,7 @@
-﻿<Application x:Class="StockExchange.App"
+﻿<Application x:Class="StockExchange.Buyer.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:StockExchange"
+             xmlns:local="clr-namespace:StockExchange.Buyer"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

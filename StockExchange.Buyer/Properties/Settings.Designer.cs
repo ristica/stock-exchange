@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StockExchange.Properties
+namespace StockExchange.Buyer.Properties
 {
 
 
