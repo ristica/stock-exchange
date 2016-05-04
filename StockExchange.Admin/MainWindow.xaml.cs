@@ -2,7 +2,9 @@
 using StockExchange.Proxies;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace StockExchange.Admin
 {
@@ -43,6 +45,29 @@ namespace StockExchange.Admin
         #endregion
 
         #region Events
+
+        private void ButtonDownClicked(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            if (btn == null) return;
+
+            var stock = this.Stocks.SingleOrDefault(s => s.Share.ToUpper() == btn.Tag.ToString().ToUpper());
+            if (stock == null) return;
+
+            stock.Price -= new decimal(0.5);
+        }
+
+        private void ButtonUpClicked(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            if (btn == null) return;
+
+            var stock = this.Stocks.SingleOrDefault(s => s.Share.ToUpper() == btn.Tag.ToString().ToUpper());
+            if (stock == null) return;
+
+            stock.Price += new decimal(0.5);
+        }
+
         #endregion
 
         #region Overrides
@@ -54,6 +79,6 @@ namespace StockExchange.Admin
             this._proxy.Close();
         }
 
-        #endregion
+        #endregion        
     }
 }

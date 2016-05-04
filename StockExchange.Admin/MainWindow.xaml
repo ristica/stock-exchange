@@ -98,7 +98,9 @@
                                     Margin="9, 5"
                                     FontSize="16"
                                     FontWeight="Bold"
-                                    Padding="0,0,1,6" />
+                                    Padding="0,0,1,6" 
+                                    Tag="{Binding Share}"
+                                    Click="ButtonUpClicked"/>
 
                             <Button Grid.Row="0"
                                     Grid.Column="3"
@@ -106,7 +108,9 @@
                                     Margin="9, 5"
                                     FontSize="16"
                                     FontWeight="Bold"
-                                    Padding="0,0,1,6" />
+                                    Padding="0,0,1,6"
+                                    Tag="{Binding Share}"
+                                    Click="ButtonDownClicked" />
 
                             <Border Grid.Row="1"
                                     Grid.Column="0"
