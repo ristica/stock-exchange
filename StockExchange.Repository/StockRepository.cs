@@ -1,14 +1,20 @@
 ﻿using StockExchange.Data.Data;
 using StockExchange.Data.Entities;
 using StockExchange.Repository.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace StockExchange.Repository
 {
-    public class StockRepository : IStockRepository
+    public class StockRepository : IStockRepository, IDisposable
     {
         private StockDbContext _ctx = new StockDbContext();
+
+        public void Dispose()
+        {
+            this.Dispose();
+        }
 
         public IEnumerable<Stock> Get()
         {
