@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ServiceModel;
 using System;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace StockExchange.Services
 {
@@ -38,7 +37,7 @@ namespace StockExchange.Services
         #region IPubSubService implementation
 
         /// <summary>
-        /// add new watcher inot the list
+        /// add new watcher into the list
         /// </summary>
         /// <param name="share"></param>
         /// <returns></returns>
@@ -73,7 +72,7 @@ namespace StockExchange.Services
                 }
 
                 // update subscriber's count on this share
-                NotifySubscribers(share);
+                NotifySubscribersAboutSubscriptions(share);
 
                 return subscribers.Count;
             }
@@ -102,38 +101,13 @@ namespace StockExchange.Services
                 shareSubscribers.Remove(callbackChannel);
 
                 // update subscriber's count on this share
-                NotifySubscribers(share);
+                NotifySubscribersAboutSubscriptions(share);
             }
         }
 
         #endregion
 
         #region Helpers
-
-        private void NotifySubscribers(string share)
-        {
-            // need to know if one of the suscribers went down in meantime
-            var downSubscribers = new List<IStockCallback>();
-
-            if (StockWatchers.ContainsKey(share.ToUpper()))
-            {
-                var subscribers = StockWatchers[share.ToUpper()];
-                foreach (var s in subscribers)
-                {
-                    try
-                    {
-                        // update subscriber's count of the share subscribers
-                        s.UpdateSubscriptions(share, subscribers.Count);
-                    }
-                    catch (Exception)
-                    {
-                        downSubscribers.Add(s);
-                    }
-                }
-            }            
-
-            RemoveDownClients(downSubscribers);
-        }
 
         private static void RemoveDownClients(IEnumerable<IStockCallback> downSubscribers)
         {
@@ -153,6 +127,35 @@ namespace StockExchange.Services
             }
         }
 
+        #endregion
+
+        #region Callback helpers
+
+        private void NotifySubscribersAboutSubscriptions(string share)
+        {
+            // need to know if one of the suscribers went down in meantime
+            var downSubscribers = new List<IStockCallback>();
+
+            if (StockWatchers.ContainsKey(share.ToUpper()))
+            {
+                var subscribers = StockWatchers[share.ToUpper()];
+                foreach (var s in subscribers)
+                {
+                    try
+                    {
+                        // update subscriber's count of the share subscribers
+                        s.RefreshSubscriptions(share, subscribers.Count);
+                    }
+                    catch (Exception)
+                    {
+                        downSubscribers.Add(s);
+                    }
+                }
+            }
+
+            RemoveDownClients(downSubscribers);
+        }
+
         public static void NotifySubscribersAboutStockPriceChange(string share, decimal price)
         {
             // need to know if one of the suscribers went down in meantime
@@ -167,7 +170,7 @@ namespace StockExchange.Services
                     {
                         try
                         {
-                            s.NotifyClientsStockChanged(share, price);
+                            s.RefreshStockState(share, price);
                         }
                         catch (Exception)
                         {

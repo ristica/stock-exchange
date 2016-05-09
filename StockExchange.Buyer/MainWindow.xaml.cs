@@ -9,11 +9,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
-using System;
 
 namespace StockExchange.Buyer
 {
-    // force it to come on to ui thread
+    // force it to work on separate thread
     [CallbackBehavior(UseSynchronizationContext = false)]
     public partial class MainWindow : Window, IStockCallback
     {
@@ -147,7 +146,7 @@ namespace StockExchange.Buyer
         /// </summary>
         /// <param name="share"></param>
         /// <param name="subscribers"></param>
-        public void UpdateSubscriptions(string share, int subscribers)
+        public void RefreshSubscriptions(string share, int subscribers)
         {
             this._syncContext.Send(arg =>
             {
@@ -163,7 +162,7 @@ namespace StockExchange.Buyer
         /// </summary>
         /// <param name="share"></param>
         /// <param name="price"></param>
-        public void NotifyClientsStockChanged(string share, decimal price)
+        public void RefreshStockState(string share, decimal price)
         {
             this._syncContext.Send(arg =>
             {

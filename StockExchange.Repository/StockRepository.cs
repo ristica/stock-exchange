@@ -1,4 +1,5 @@
-﻿using StockExchange.Data.Entities;
+﻿using StockExchange.Data.Data;
+using StockExchange.Data.Entities;
 using StockExchange.Repository.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,22 +8,26 @@ namespace StockExchange.Repository
 {
     public class StockRepository : IStockRepository
     {
+        private StockDbContext _ctx = new StockDbContext();
+
         public IEnumerable<Stock> Get()
         {
-            return Data.StockDatabase.GetStocks();
+            return this._ctx.StockSet.ToList();
         }
 
         public Stock GetStockByShare(string share)
         {
-            return this.Get().SingleOrDefault(s => s.Share.ToUpper() == share.ToUpper());
+            return this._ctx.StockSet.SingleOrDefault(s => s.Share.ToUpper() == share.ToUpper());
         }
 
         public Stock UpdateCurrentPrice(string share, decimal price)
         {
-            var stock = this.Get().SingleOrDefault(s => s.Share.ToUpper() == share.ToUpper());
+            var stock = this._ctx.StockSet.SingleOrDefault(s => s.Share.ToUpper() == share.ToUpper());
             if (stock != null)
             {
                 stock.CurrentPrice = price;
+                this._ctx.SaveChanges();
+
                 return stock;
             }
 

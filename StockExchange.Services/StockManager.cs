@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using StockExchange.Contracts.DataContracts;
 using StockExchange.Repository;
 using System.Linq;
-using System;
 
 namespace StockExchange.Services
 {
@@ -42,14 +41,17 @@ namespace StockExchange.Services
             return new StockData { Share = stock.Share, Company = stock.Company, CurrentPrice = stock.CurrentPrice };
         }
 
-        public decimal UpdateStockPrice(string shape, decimal oldPrice, bool up)
+        public decimal UpdateStockPrice(string share, decimal oldPrice, bool up)
         {
-            var stock = this.Get().SingleOrDefault(s => s.Share.ToUpper() == shape.ToUpper());
+            var stock = this.Get().SingleOrDefault(s => s.Share.ToUpper() == share.ToUpper());
             if (stock == null) return oldPrice;
 
             var newPrice = up ? (oldPrice += this._amount) : (oldPrice -= this._amount);
 
-            PubSubManager.NotifySubscribersAboutStockPriceChange(shape, newPrice);
+            IStockRepository repository = new StockRepository();
+            var result = repository.UpdateCurrentPrice(share, newPrice);
+
+            PubSubManager.NotifySubscribersAboutStockPriceChange(result.Share, result.CurrentPrice);
 
             return newPrice;
         }

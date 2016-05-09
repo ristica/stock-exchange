@@ -6,9 +6,9 @@ namespace StockExchange.Contracts
     public interface IStockCallback
     {
         [OperationContract]
-        void UpdateSubscriptions(string share, int subscribers);
+        void RefreshSubscriptions(string share, int subscribers);
 
         [OperationContract]
-        void NotifyClientsStockChanged(string share, decimal price);
+        void RefreshStockState(string share, decimal price);
     }
 }

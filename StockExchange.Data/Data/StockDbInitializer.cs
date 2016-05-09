@@ -1,13 +1,14 @@
 ﻿using StockExchange.Data.Entities;
 using System.Collections.Generic;
+using System.Data.Entity;
 
-namespace StockExchange.Data
+namespace StockExchange.Data.Data
 {
-    public static class StockDatabase
+    public class StockDbInitializer : DropCreateDatabaseAlways<StockDbContext>
     {
-        public static IEnumerable<Stock> GetStocks()
+        protected override void Seed(StockDbContext context)
         {
-            return new List<Stock>
+            var stocks = new List<Stock>
             {
                 new Stock
                 {
@@ -34,6 +35,13 @@ namespace StockExchange.Data
                     CurrentPrice = new decimal(0.41)
                 },
             };
+
+            foreach (var s in stocks)
+            {
+                context.StockSet.Add(s);
+            }
+
+            base.Seed(context);
         }
     }
 }
