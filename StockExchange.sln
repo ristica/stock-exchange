@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockExchange.Services", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockExchange.Proxies", "StockExchange.Proxies\StockExchange.Proxies.csproj", "{E3AA9400-8BB4-49C3-A488-E689E752CC65}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Businnes Layer", "Businnes Layer", "{7352C56E-C6A3-4254-915B-3CD3106D778B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service Layer", "Service Layer", "{7352C56E-C6A3-4254-915B-3CD3106D778B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockExchange.Data", "StockExchange.Data\StockExchange.Data.csproj", "{B02EA783-38B0-499D-B73A-7CC5D11A36D8}"
 EndProject
