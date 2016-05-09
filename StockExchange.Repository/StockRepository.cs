@@ -9,12 +9,14 @@ namespace StockExchange.Repository
 {
     public class StockRepository : IStockRepository, IDisposable
     {
-        private StockDbContext _ctx = new StockDbContext();
+        #region Fields
 
-        public void Dispose()
-        {
-            this.Dispose();
-        }
+        private StockDbContext _ctx = new StockDbContext();
+        private bool _isDisposed;
+
+        #endregion
+
+        #region IStockRepository implementation
 
         public IEnumerable<Stock> Get()
         {
@@ -39,5 +41,32 @@ namespace StockExchange.Repository
 
             throw new NotFoundException(string.Format("Share {0} not found!", share));
         }
+
+        #endregion
+
+        #region IDsposable implementation
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion
+
+        #region Helpers
+
+        private void Dispose(bool disposing)
+        {
+            if (this._isDisposed) return;
+
+            if (disposing)
+            {
+                this._ctx.Dispose();
+            }
+            this._isDisposed = true;
+        }
+
+        #endregion        
     }
 }
