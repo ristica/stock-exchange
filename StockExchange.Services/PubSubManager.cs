@@ -131,6 +131,10 @@ namespace StockExchange.Services
 
         #region Callback helpers
 
+        /// <summary>
+        /// this one will be invoked from here
+        /// </summary>
+        /// <param name="share"></param>
         private void NotifySubscribersAboutSubscriptions(string share)
         {
             // need to know if one of the suscribers went down in meantime
@@ -156,6 +160,11 @@ namespace StockExchange.Services
             RemoveDownClients(downSubscribers);
         }
 
+        /// <summary>
+        /// this one will be invoked outside of the PubSubManager and that is why it is static
+        /// </summary>
+        /// <param name="share"></param>
+        /// <param name="price"></param>
         public static void NotifySubscribersAboutStockPriceChange(string share, decimal price)
         {
             // need to know if one of the suscribers went down in meantime
