@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ServiceModel;
 using StockExchange.Contracts.DataContracts;
-using System;
 
 namespace StockExchange.Proxies
 {

@@ -11,7 +11,7 @@ namespace StockExchange.Repository
     {
         #region Fields
 
-        private StockDbContext _ctx = new StockDbContext();
+        private readonly StockDbContext _ctx = new StockDbContext();
         private bool _isDisposed;
 
         #endregion
@@ -31,15 +31,10 @@ namespace StockExchange.Repository
         public Stock UpdateCurrentPrice(string share, decimal price)
         {
             var stock = this._ctx.StockSet.SingleOrDefault(s => s.Share.ToUpper() == share.ToUpper());
-            if (stock != null)
-            {
-                stock.CurrentPrice = price;
-                this._ctx.SaveChanges();
-
-                return stock;
-            }
-
-            throw new NotFoundException(string.Format("Share {0} not found!", share));
+            if (stock == null) throw new NotFoundException($"Share {share} not found!");
+            stock.CurrentPrice = price;
+            this._ctx.SaveChanges();
+            return stock;
         }
 
         #endregion

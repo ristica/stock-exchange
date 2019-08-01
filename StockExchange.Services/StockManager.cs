@@ -15,20 +15,15 @@ namespace StockExchange.Services
             var data = new List<StockData>();
 
             IStockRepository repository = new StockRepository();
-            var stocks = repository.Get(); 
-            if (stocks != null)
-            {
-                foreach (var s in stocks)
+            var stocks = repository.Get();
+            if (stocks == null) return data;
+            data.AddRange(
+                stocks.Select(s => new StockData
                 {
-                    data.Add(
-                    new StockData
-                    {
-                        Share = s.Share,
-                        Company = s.Trader,
-                        CurrentPrice = s.CurrentPrice
-                    });
-                }
-            }
+                    Share = s.Share,
+                    Company = s.Trader,
+                    CurrentPrice = s.CurrentPrice
+                }));
 
             return data;
         }
@@ -36,9 +31,7 @@ namespace StockExchange.Services
         public StockData GetStock(string shape)
         {
             var stock = this.Get().SingleOrDefault(s => s.Share.ToUpper() == shape.ToUpper());
-            if (stock == null) return null;
-
-            return new StockData { Share = stock.Share, Company = stock.Company, CurrentPrice = stock.CurrentPrice };
+            return stock == null ? null : new StockData { Share = stock.Share, Company = stock.Company, CurrentPrice = stock.CurrentPrice };
         }
 
         public decimal UpdateStockPrice(string share, decimal oldPrice, bool up)
@@ -46,7 +39,7 @@ namespace StockExchange.Services
             var stock = this.Get().SingleOrDefault(s => s.Share.ToUpper() == share.ToUpper());
             if (stock == null) return oldPrice;
 
-            var newPrice = up ? (oldPrice += this._amount) : (oldPrice -= this._amount);
+            var newPrice = up ? oldPrice + this._amount : oldPrice - this._amount;
 
             IStockRepository repository = new StockRepository();
             var result = repository.UpdateCurrentPrice(share, newPrice);

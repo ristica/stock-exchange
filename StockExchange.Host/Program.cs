@@ -36,12 +36,12 @@ namespace StockExchange.Host
             }
             catch(Exception ex)
             {
-                if (stockHost.State == CommunicationState.Faulted)
+                if (stockHost != null && stockHost.State == CommunicationState.Faulted)
                 {
                     stockHost.Close();
                 }
 
-                if (pubSubHost.State == CommunicationState.Faulted)
+                if (pubSubHost != null && pubSubHost.State == CommunicationState.Faulted)
                 {
                     pubSubHost.Close();
                 }
